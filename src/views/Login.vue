@@ -11,6 +11,12 @@ const router = useRouter();
 // 获取多选框
 const checkbox = ref("");
 
+const clientID =
+  "618c693f772f306e0b303d1c8d5cc2f6350f73db98f1700bcfd3fc80163e0aa0";
+const clientSecret =
+  "4ccdaa886bcd0faf0a2310b8de12ca416ed1edb5ded46449be2c0ece9de7d1ed";
+const scope = "user_info projects";
+
 const user = reactive({
   account: "",
   password: "",
@@ -18,10 +24,16 @@ const user = reactive({
 
 const verify = (account, password) => {
   if (!user.account == "" && !user.password == "" && checkbox.value.checked) {
-    getOrder(account, password).then((res) => {
-      console.log(res);
+    getOrder(account, password, clientID, clientSecret, scope).then((res) => {
+      const data = res;
+      localStorage.setItem("accessToken", data.access_token);
+      localStorage.setItem("tokenType", data.token_type);
+      localStorage.setItem("expiresIn", data.expires_in.toString());
+      localStorage.setItem("scope", data.scope);
+      localStorage.setItem("isLogin", "1");
+      alert("登陆成功");
+      router.push("/home");
     });
-    router.push("/home");
   } else if (user.account === "" && user.password === "") {
     alert("账号或密码不能为空");
   } else if (!checkbox.value.checked) {
