@@ -7,10 +7,6 @@ import axios from "axios";
 import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
 
-// 全局注册axios
-// 全局配置axios
-axios.defaults.headers.post["Content-Type"] = "application/json";
-
 const app = createApp(App).use(ElementPlus);
 
 app.use(router).use(axios);
