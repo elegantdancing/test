@@ -24,15 +24,15 @@ const user = reactive({
 
 const verify = (account, password) => {
   if (!user.account == "" && !user.password == "" && checkbox.value.checked) {
-    getOrder(account, password, clientID, clientSecret, scope).then((res) => {
-      const data = res;
+    getOrder(account, password, clientID, clientSecret, scope).then((data) => {
+      console.log(data);
       localStorage.setItem("accessToken", data.access_token);
       localStorage.setItem("tokenType", data.token_type);
       localStorage.setItem("expiresIn", data.expires_in.toString());
       localStorage.setItem("scope", data.scope);
       localStorage.setItem("isLogin", "1");
       alert("登陆成功");
-      router.push("/home");
+      // router.push("/home");
     });
   } else if (user.account === "" && user.password === "") {
     alert("账号或密码不能为空");
@@ -98,7 +98,7 @@ const verify = (account, password) => {
     margin-top: 2vw;
     button {
       display: block;
-      background-color: aqua;
+      background-color: rgb(0, 81, 255);
       margin-left: 12vw;
       margin-bottom: 1vw;
       color: white;
